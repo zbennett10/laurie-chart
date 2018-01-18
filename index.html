@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Arima+Madurai" rel="stylesheet">
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="index.css">
+
+        <!-- JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.12.2/d3.min.js"></script>
+    </head>
+    <body>
+        <header class="text-center">
+            <h1>Laurie's Ferritin Levels</h1>
+        </header>
+        <form id="FerritinForm">
+            <h3>New Measurement</h3>
+            <div class="form-group">
+                <label for="FerritinDate">
+                    Date
+                    <input id="FerritinDate" class="form-control" type="date"/>
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="FerritinLevel">
+                    Level (ng/mL)
+                    <input id="FerritinLevel" class="form-control" type="number"/>
+                </label>
+            </div>
+            <button id="FerritinSubmitBtn" class="btn btn-lg btn-success" type="button">Add Measurement</button>
+        </form>
+        <main>
+            <div id="MomChart"></div>
+        </main>
+        <div id="ImageContainer" class="text-center">
+           <img src="images/kalie_zach.jpg"/>
+           <h3>You can do it Mom!</h3>
+           <h5><em>We love you!</em></h5>
+        </div>
+        <footer>
+            <p>&copy; Zachary Bennett</p>
+        </footer>
+
+        <script src="index.js"></script>
+    </body>
+</html>

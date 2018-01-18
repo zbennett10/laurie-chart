@@ -1,0 +1,107 @@
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arima Madurai', cursive;
+    background-color: white;
+    color: black;
+  }  
+
+#ImageContainer {
+    position: absolute;
+    top: 25%;
+    right: 0;
+    margin-right: 25px;
+}
+
+#ImageContainer img {
+    height: 375px;
+    width: 300px;
+}
+
+#FerritinForm {
+    margin-left: 50px;
+}
+
+#FerritinForm h3 {
+    text-shadow: 1px 1px black;
+    font-family: 'Arima Madurai', cursive;
+}
+  
+#MomChart {
+    background-color: white;
+    opacity: .7;
+    width: 800px;
+    height: 600px;
+    box-shadow: 0 0 3px 2px black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: calc(-1 * (800px / 2));
+    margin-top: calc(-1 * (600px / 2));
+}
+
+.line {
+    fill: none;
+    stroke: #b88a5c;
+    stroke-width: 2;
+}
+
+.goalline {
+    fill: none;
+    stroke: #5cb85c;
+    stroke-width: 2;
+
+}
+
+.point {
+    cursor: pointer;
+}
+
+.axis-label {
+    font-weight: bold;
+}
+
+.tooltip {
+    position: absolute;
+    text-align: center;
+    border: 1px solid #000;
+    background-color: lightblue;
+    font-size: 11px;
+    color: black;
+    padding: 10px;
+    max-width: 150px;
+    opacity: 0;
+  }
+
+.confirm-delete {
+    position: absolute;
+    text-align: center;
+    border: 1px solid #000;
+    background-color: white;
+    font-size: 11px;
+    color: red;
+    padding: 10px;
+    height: 8px;
+    width: 70px;
+    opacity: 0;
+    cursor: pointer;
+    box-shadow: 1px 1px 3px black;
+}
+
+.confirm-delete h5 {
+    margin-top: -8px;
+    font-weight: bold;
+}
+
+header h1 {
+    text-shadow: 1px 1px black;
+    font-family: 'Arima Madurai', cursive;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    margin-left: 10px;
+}
