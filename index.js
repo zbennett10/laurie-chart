@@ -97,6 +97,13 @@
     .append("g")
     .attr("transform", "translate(" + margin.left + ',' + margin.top + ')');
 
+    //hide deletion confirmation if click event occurs apart from deletion confirmation element
+    document.body.addEventListener("click", function(e) {
+        deletionConfirmation.transition()
+            .duration(300)
+            .style("opacity", 0)
+            .style("z-index", -1);
+    });
 
     plot.append("text")
         .attr("transform", "translate(" + (0 - margin.left/2 - 12) + "," + (height / 2) + ") rotate(-90)")
@@ -208,7 +215,9 @@
                 .style("opacity", 0)
                 .style("z-index", -1);
         })
-        .on("click", function(d) {
+        .on("click", function(d, e, a) {
+            d3.event.stopPropagation();
+            d3.event.preventDefault();
             var self = this;
             tooltip.transition()
                 .duration(300)
