@@ -110,9 +110,10 @@ footer p {
     margin-left: 50px;
 }
 
-@media only screen and (max-width: 768px) {
+@media screen and (max-width: 768px) {
     /* For mobile phones: */
     [class*="col-"] {
         width: 100%;
+        margin-bottom: 20px;
     }
 }
