@@ -1,10 +1,3 @@
-/*For mobile phones*/
-@media only screen and (max-width: 768px) {
-    [class*="col-"] {
-        width: 100%;
-    }
-}
-
 html, body {
     height: 100%;
     margin: 0;
@@ -15,22 +8,28 @@ html, body {
   }  
 
 #ImageContainer {
-    width: 375px;
+    margin-left: -40px;
+}
+
+main.row {
+    padding: 15px;
 }
 
 #ImageContainer img {
     height: 400px;
-    /* width: 300px; */
-    width: 100%;
-}
-
-#FerritinForm {
-    margin-left: 50px;
+    width: 340px;
+    margin-left: -60px;
 }
 
 #FerritinForm h3 {
     text-shadow: 1px 1px black;
     font-family: 'Arima Madurai', cursive;
+}
+
+#FerritinForm .form-group {
+    min-width: 200px;
+    margin-right: auto;
+    margin-left: auto;
 }
   
 #MomChart {
@@ -39,7 +38,8 @@ html, body {
     width: 800px;
     height: 600px;
     box-shadow: 0 0 3px 2px black;
-    margin-left: 50px;
+    margin-left: auto;
+    margin-right: auto;
     /* position: absolute;
     top: 50%;
     left: 50%; */
@@ -112,4 +112,11 @@ footer {
 
 footer p {
     margin-left: 50px;
+}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    [class*="col-"] {
+        width: 100%;
+    }
 }

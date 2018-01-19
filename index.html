@@ -18,22 +18,24 @@
         </header>
         <main class="row">
             <form id="FerritinForm" class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                <h3>New Measurement</h3>
+                <h3 class="text-center">New Measurement</h3>
                 <div class="form-group">
-                    <label for="FerritinDate">
+                    <label class="center-block" for="FerritinDate">
                         Date
                         <input id="FerritinDate" class="form-control" type="date"/>
                     </label>
                 </div>
                 <div class="form-group">
-                    <label for="FerritinLevel">
+                    <label class="center-block" for="FerritinLevel">
                         Level (ng/mL)
                         <input id="FerritinLevel" class="form-control" type="number"/>
                     </label>
                 </div>
-                <button id="FerritinSubmitBtn" class="btn btn-lg btn-success" type="button">Add Measurement</button>
+                <button id="FerritinSubmitBtn" class="btn btn-lg btn-success center-block" type="button">Add Measurement</button>
             </form>
-            <div id="MomChart" class="col-sm-8 col-md-8 col-lg-8 col-xl-8"></div>
+            <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                <div id="MomChart"></div>
+            </div>
             <div id="ImageContainer" class="text-center col-sm-2 col-md-2 col-lg-2 col-xl-2">
                 <img src="images/kalie_zach.jpg"/>
                 <h3>You can do it Mom!</h3>
