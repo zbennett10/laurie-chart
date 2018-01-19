@@ -9,15 +9,13 @@ html, body {
   }  
 
 #ImageContainer {
-    position: absolute;
-    top: 25%;
-    right: 0;
-    margin-right: 25px;
+    width: 375px;
 }
 
 #ImageContainer img {
-    height: 375px;
-    width: 300px;
+    height: 400px;
+    /* width: 300px; */
+    width: 100%;
 }
 
 #FerritinForm {
@@ -35,11 +33,12 @@ html, body {
     width: 800px;
     height: 600px;
     box-shadow: 0 0 3px 2px black;
-    position: absolute;
+    margin-left: 50px;
+    /* position: absolute;
     top: 50%;
-    left: 50%;
-    margin-left: calc(-1 * (800px / 2));
-    margin-top: calc(-1 * (600px / 2));
+    left: 50%; */
+    /* margin-left: calc(-1 * (800px / 2));
+    margin-top: calc(-1 * (600px / 2)); */
 }
 
 .line {
@@ -103,5 +102,8 @@ header h1 {
 footer {
     position: absolute;
     bottom: 0;
-    margin-left: 10px;
+}
+
+footer p {
+    margin-left: 50px;
 }
