@@ -7,9 +7,6 @@ html, body {
     color: black;
   }  
 
-#ImageContainer {
-    margin-left: -40px;
-}
 
 main.row {
     padding: 15px;
@@ -17,8 +14,7 @@ main.row {
 
 #ImageContainer img {
     height: 400px;
-    width: 340px;
-    margin-left: -60px;
+    width: 100%;
 }
 
 #FerritinForm h3 {
