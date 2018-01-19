@@ -187,18 +187,13 @@
             return "#b85cb8";
         })
         .style("opacity", .8)
+        .on("touchstart", function(d) {
+            var circle = this;
+            showTooltip(d, circle);
+        })
         .on("mouseover", function(d) {
-            d3.select(this).style("opacity", 1)
-                           .attr("r", 11);
-
-            tooltip.transition()
-                .duration(300)
-                .style("opacity", .8);
-
-            tooltip.html('<h5>' + d.date.toDateString() + '</h5><h6>Ferritin Level: ' + d.level + 'ng/mL</h6>')
-                .style("left", (d3.event.pageX + 20) + 'px') 
-                .style("top",  (d3.event.pageY - 28) + "px")
-                .style("z-index", 10);
+            var circle = this;
+            showTooltip(d, circle);
         })
         .on("mouseout", function(d) {
             d3.select(this).style("opacity", .8)
@@ -251,5 +246,19 @@
                         .style("z-index", -1);
                 });
         });
+    }
+
+    function showTooltip(d, circle) {
+        d3.select(circle).style("opacity", 1)
+                        .attr("r", 11);
+
+        tooltip.transition()
+            .duration(300)
+            .style("opacity", .8);
+
+        tooltip.html('<h5>' + d.date.toDateString() + '</h5><h6>Ferritin Level: ' + d.level + 'ng/mL</h6>')
+            .style("left", (d3.event.pageX + 20) + 'px') 
+            .style("top",  (d3.event.pageY - 28) + "px")
+            .style("z-index", 10);
     }
 })();
