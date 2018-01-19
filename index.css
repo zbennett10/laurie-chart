@@ -95,15 +95,13 @@ main.row {
     margin-top: -8px;
     font-weight: bold;
 }
+header {
+    margin-top: 20px;
+}
 
 header h1 {
     text-shadow: 1px 1px black;
     font-family: 'Arima Madurai', cursive;
-}
-
-footer {
-    position: absolute;
-    bottom: 0;
 }
 
 footer p {
