@@ -191,6 +191,10 @@
             var circle = this;
             showTooltip(d, circle);
         })
+        .on("touchmove", function(d) {
+            var circle = this;
+            showTooltip(d, circle);
+        })
         .on("mouseover", function(d) {
             var circle = this;
             showTooltip(d, circle);
