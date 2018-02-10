@@ -1,121 +1,121 @@
 (function() {
-    var margin = {top: 20, right: 20, bottom: 70, left: 70},
-    width = 800,
-    height = 600;
+        var margin = {top: 20, right: 20, bottom: 70, left: 70},
+                    width = 800,
+                    height = 600;
 
-    //id generator
-    var counter = 8;
-    var generateID = function() {
-        return ++counter;
-    }
+        var tooltip = d3.select('body')
+            .append('div')
+            .attr("class", "tooltip")
+            .attr("opacity", 0);
 
-    var ferritinLevels = [
-        {
-            id: 1,
-            date: new Date("9-21-17"),
-            level: 3746
-        },
-        {
-            id: 2,
-            date: new Date("11-8-17"),
-            level: 4614 
-        },
-        {
-            id: 3,
-            date: new Date("11-17-17"),
-            level: 3820 
-        },
-        {
-            id: 4,
-            date: new Date("11-22-17"),
-            level: 2554 
-        },
-        {
-            id: 5,
-            date: new Date("12-1-17"),
-            level: 2000
-        },
-        {
-            id: 6,
-            date: new Date("12-15-17"),
-            level: 1998 
-        },
-        {
-            id: 7,
-            date: new Date("12-28-17"),
-            level: 699
-        },
-        {
-            id: 8,
-            date: new Date("1-5-18"),
-            level: 2613 
+        var deletionConfirmation = d3.select('body')
+            .append('div')
+            .attr("class", "confirm-delete")
+            .attr("opacity", 0);
+
+        var plot = d3.select("#MomChart").append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + ',' + margin.top + ')');
+
+        //hide deletion confirmation if click event occurs apart from deletion confirmation element
+        document.body.addEventListener("click", function(e) {
+            deletionConfirmation.transition()
+                .duration(300)
+                .style("opacity", 0)
+                .style("z-index", -1);
+        });
+
+        plot.append("text")
+            .attr("transform", "translate(" + (0 - margin.left/2 - 12) + "," + (height / 2) + ") rotate(-90)")
+            .attr("class", "axis-label")
+            .text("Ferritin ng/mL");
+
+        plot.append("text")
+            .attr("transform", "translate(" + (width / 2.75) + ',' + (height - margin.bottom / 2) + ")")
+            .attr("class", "axis-label")
+            .text("Date Measured");
+
+        //id generator
+        var counter = 8;
+        var generateID = function() {
+            return ++counter;
         }
-    ];
-
-    var tooltip = d3.select('body')
-        .append('div')
-        .attr("class", "tooltip")
-        .attr("opacity", 0);
-
-    var deletionConfirmation = d3.select('body')
-        .append('div')
-        .attr("class", "confirm-delete")
-        .attr("opacity", 0);
-
-    var maxLevel = (function() {
-            var max = 0;
-            ferritinLevels.forEach(function(level) {
-                if(max < level.level) max = level.level;
-            });
-            return max;
-        })();
+        var maxLevel;
 
     window.onload = function() {
-        //draw initial chart
-        drawChart();
-
-        var dateInput = document.querySelector('#FerritinDate');
-        var levelInput = document.querySelector('#FerritinLevel');
-        //wire up event listeners
-        document.querySelector('#FerritinSubmitBtn').addEventListener('click', function(e) {
-        var date = new Date(dateInput.value); 
-        var level = parseInt(levelInput.value);
-        ferritinLevels.push({
-            id: ferritinLevels.length + 1,
-            date: date,
-            level: level
-        });
-
-        drawChart();
-        });
+        fetch('https://mama-chart-api.herokuapp.com/ferritin-levels')
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(jsonString) {
+                var ferritinLevels = JSON.parse(jsonString)
+                                        .map(function(level) {
+                                            level.date = new Date(level.date);
+                                            return level;
+                                        });
+                initializeApp(ferritinLevels);
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
     }
 
-    //assign static portions of chart
-    var plot = d3.select("#MomChart").append("svg")
-    .attr("width", width)
-    .attr("height", height)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + ',' + margin.top + ')');
+    function initializeApp(ferritinLevels) {
+            maxLevel = (function() {
+                var max = 0;
+                ferritinLevels.forEach(function(level) {
+                    if(max < level.level) max = level.level;
+                });
+                return max;
+            })();
 
-    //hide deletion confirmation if click event occurs apart from deletion confirmation element
-    document.body.addEventListener("click", function(e) {
-        deletionConfirmation.transition()
-            .duration(300)
-            .style("opacity", 0)
-            .style("z-index", -1);
-    });
+            //draw initial chart
+            drawChart(ferritinLevels);
 
-    plot.append("text")
-        .attr("transform", "translate(" + (0 - margin.left/2 - 12) + "," + (height / 2) + ") rotate(-90)")
-        .attr("class", "axis-label")
-        .text("Ferritin ng/mL");
+            var dateInput = document.querySelector('#FerritinDate');
+            var levelInput = document.querySelector('#FerritinLevel');
+            //wire up event listeners
+            document.querySelector('#FerritinSubmitBtn').addEventListener('click', function(e) {
+            var date = new Date(dateInput.value); 
+            var level = parseInt(levelInput.value);
+            var newLevel = {
+                id: ferritinLevels.length + 1,
+                date: date,
+                level: level
 
-    plot.append("text")
-        .attr("transform", "translate(" + (width / 2.75) + ',' + (height - margin.bottom / 2) + ")")
-        .attr("class", "axis-label")
-        .text("Date Measured");
+            }
+            ferritinLevels.push(newLevel);
+            var levelToPost = {
+                id: newLevel.id,
+                date: dateInput.value,
+                level: newLevel.level
+            }
+            fetch('https://mama-chart-api.herokuapp.com/ferritin-level', {
+                method: 'POST',
+                body: JSON.stringify(levelToPost),
+                headers: new Headers({
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type': 'application/json'
+                })
+            })
+            .then(function(response) {
+                return;
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
 
-    function drawChart() {
+            drawChart(ferritinLevels);
+            });
+
+        //assign static portions of chart
+        
+    }
+
+
+    function drawChart(ferritinLevels) {
         maxLevel = (function() {
             var max = 0;
             ferritinLevels.forEach(function(level) {
@@ -236,6 +236,9 @@
                     var deletionIndex = ferritinLevels.findIndex(function(ferritinLevel) {
                         return ferritinLevel.id === d.id;
                     });
+
+                    var id = ferritinLevels[deletionIndex].id
+
                     if(deletionIndex > -1) {
                         deletionConfirmation.transition()
                             .duration(300)
@@ -245,10 +248,25 @@
                         //remove level from ferritinLevels
                         ferritinLevels.splice(deletionIndex, 1); 
 
+                        //delete level in api
+                        fetch('https://mama-chart-api.herokuapp.com/ferritin-level?id=' + id, {
+                            method: 'DELETE',
+                            headers: new Headers({
+                                'Access-Control-Allow-Origin': '*'
+                            })
+                        })
+                        .then(function(response) {
+                            console.log(response);
+                            return;
+                        })
+                        .catch(function(error) {
+                            console.log(error);
+                        });
+
                         d3.select(self).remove();
 
                         //hide confirmation
-                        drawChart();
+                        drawChart(ferritinLevels);
 
                     }
                 })
